@@ -27,24 +27,24 @@ public class UserController {
     public String allUsers(Model model) {
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
-        return "/user-list";
+        return "user-list";
     }
 
     @GetMapping("/new")
     public String createUserForm(@ModelAttribute("user") User user) {
         System.out.println("new user");
-        return "/user-create";
+        return "user-create";
     }
 
     @PostMapping("/create")
     public String createUser(@ModelAttribute("user") @Valid User user,
                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "/user-create";
+            return "user-create";
         }
 
         userService.save(user);
-        return "redirect:/users";
+        return "redirect:users";
     }
 
     @GetMapping("/edit")
@@ -55,7 +55,7 @@ public class UserController {
             model.addAttribute("user", userById.get());
             return "edit-user";
         } else {
-            return "redirect:/users";
+            return "redirect:users";
         }
     }
 
@@ -63,16 +63,16 @@ public class UserController {
     public String editUser(@ModelAttribute("user") @Valid User user,
                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "/edit-user";
+            return "edit-user";
         }
 
         userService.updateUser(user);
-        return "redirect:/users";
+        return "redirect:users";
     }
 
     @PostMapping("/delete")
     public String deleteUser(@RequestParam("id") Long id) {
         userService.deleteById(id);
-        return "redirect:/users";
+        return "redirect:users";
     }
 }
