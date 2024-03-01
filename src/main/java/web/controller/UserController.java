@@ -53,7 +53,7 @@ public class UserController {
 
         if (userById.isPresent()) {
             model.addAttribute("user", userById.get());
-            return "edit-user";
+            return "/edit-user";
         } else {
             return "redirect:/users";
         }
